@@ -1,0 +1,20 @@
+networks:
+  rede_desafio1:
+    driver: bridge
+
+services:
+  servidor:
+    build: .
+    container_name: desafio1_servidor
+    ports:
+      - "8080:8080"
+    networks:
+      - rede_desafio1
+
+  cliente:
+    build: ./client
+    container_name: desafio1_cliente
+    depends_on:
+      - servidor 
+    networks:
+      - rede_desafio1
