@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  users-service:
+    build: 
+      context: ./microservice_a
+    container_name: ms_a_users_service
+    networks:
+      - microservice_net
+    
+  consumer-service:
+    build: 
+      context: ./microservice_b
+    container_name: ms_b_consumer_service
+    environment:
+      MS_A_HOST: users-service 
+    ports:
+      - "8001:8001" 
+    depends_on:
+      - users-service
+    networks:
+      - microservice_net
+
+networks:
+  microservice_net:
+    driver: bridge
