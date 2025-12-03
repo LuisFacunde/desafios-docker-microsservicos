@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  api-gateway:
+    build: 
+      context: ./api-gateway
+    container_name: api_gateway_service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - users-service
+      - orders-service
+    networks:
+      - gateway_net
+
+  users-service:
+    build: 
+      context: ./users-service
+    container_name: ms_users
+    networks:
+      - gateway_net
+
+  orders-service:
+    build: 
+      context: ./orders-service
+    container_name: ms_orders
+    networks:
+      - gateway_net
+
+networks:
+  gateway_net:
+    driver: bridge
