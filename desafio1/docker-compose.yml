@@ -1,20 +1,24 @@
-networks:
-  rede_desafio1:
-    driver: bridge
+version: '3.8'
 
 services:
   servidor:
-    build: .
-    container_name: desafio1_servidor
+    build: 
+      context: ./server 
+    container_name: servidor_web
     ports:
       - "8080:8080"
     networks:
-      - rede_desafio1
+      - minha_rede_docker
 
   cliente:
-    build: ./client
-    container_name: desafio1_cliente
+    build: 
+      context: ./client
+    container_name: cliente_requisitante
     depends_on:
       - servidor 
     networks:
-      - rede_desafio1
+      - minha_rede_docker
+
+networks:
+  minha_rede_docker:
+    driver: bridge

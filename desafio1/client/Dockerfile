@@ -1,9 +1,11 @@
 FROM alpine:latest
 
-RUN apk add curl
+RUN apk --no-cache add curl
 
-COPY script.sh /app/script.sh
+WORKDIR /app
 
-RUN chmod +x /app/script.sh
+COPY script.sh .
+
+RUN chmod +x script.sh
 
 CMD ["/app/script.sh"]

@@ -20,18 +20,18 @@ A solução implementa uma arquitetura de três camadas clássica orquestrada pe
 
 ### Decisões Técnicas
 
-1.  **Orquestração e Redes**: Utilizamos o `docker-compose.yml` para definir e iniciar todos os serviços simultaneamente. [cite_start]Uma **rede bridge customizada** (`app_network`) é criada automaticamente, o que permite a comunicação por **nomes de serviço** (DNS interno)[cite: 52].
-2.  [cite_start]**Configuração de Dependências**: O campo `depends_on: [db, cache]` é configurado no serviço `web`[cite: 52]. Isso garante que os serviços de dados estejam em processo de inicialização antes que a API `web` tente se conectar, prevenindo falhas de *startup*.
-3.  [cite_start]**Variáveis de Ambiente**: As credenciais de conexão do PostgreSQL e os *hostnames* internos (ex: `DB_HOST: db`) são passados para a aplicação `web` via `environment`, garantindo boas práticas de configuração[cite: 50].
+1.  **Orquestração e Redes**: Utilizamos o `docker-compose.yml` para definir e iniciar todos os serviços simultaneamente. Uma **rede bridge customizada** (`app_network`) é criada automaticamente, o que permite a comunicação por **nomes de serviço** (DNS interno).
+2.  **Configuração de Dependências**: O campo `depends_on: [db, cache]` é configurado no serviço `web`. Isso garante que os serviços de dados estejam em processo de inicialização antes que a API `web` tente se conectar, prevenindo falhas de *startup*.
+3.  **Variáveis de Ambiente**: As credenciais de conexão do PostgreSQL e os *hostnames* internos (ex: `DB_HOST: db`) são passados para a aplicação `web` via `environment`, garantindo boas práticas de configuração.
 
 ### Fluxo de Funcionamento
 
 O funcionamento é comprovado quando uma requisição ao Serviço `web` força a comunicação interna:
 
 1.  **Requisição Externa**: O cliente acessa `http://localhost:8000/`.
-2.  [cite_start]**Comunicação Inter-serviço**: A aplicação `web` (FastAPI) tenta estabelecer conexões com o `db` e o `cache` usando os nomes dos serviços (`db` e `cache`)[cite: 51].
+2.  **Comunicação Inter-serviço**: A aplicação `web` (FastAPI) tenta estabelecer conexões com o `db` e o `cache` usando os nomes dos serviços (`db` e `cache`).
 3.  **Resolução de Nomes**: O Docker resolve esses nomes para os IPs internos dos containers, e a conexão é realizada com sucesso dentro da rede `app_network`.
-4.  [cite_start]**Prova Funcional**: A API `web` retorna um JSON indicando o status `Conectado com sucesso` para ambos os serviços, provando que a **comunicação entre os serviços está funcionando**[cite: 56].
+4.  **Prova Funcional**: A API `web` retorna um JSON indicando o status `Conectado com sucesso` para ambos os serviços, provando que a **comunicação entre os serviços está funcionando**.
 
 ---
 

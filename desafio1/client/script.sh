@@ -1,4 +1,4 @@
-SERVER_URL="http://servidor:8080"
+SERVER_URL="http://servidor:8080" 
 
 echo "Iniciando requisições periódicas para $SERVER_URL..."
 
