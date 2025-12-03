@@ -24,8 +24,6 @@ A solução contém dois containers conectados por uma rede Docker definida no `
 3. **Comunicação por nome de serviço**: o cliente usa a URL `http://servidor:8080` para se conectar, aproveitando o DNS interno do Docker Compose.
 4. **Orquestração com Docker Compose**: o `docker-compose.yml` define os serviços e a rede, permitindo levantar tudo com um único comando.
 
-> Observação: No `docker-compose.yml` há uma pequena inconsistência entre o nome de rede usado nas seções de `services` (`desafio1_docker`) e o nome definido em `networks` (`desafio1_dock`). Isso pode ser intencional ou um typo; se quiser, corrijo para que os nomes batam.
-
 ---
 
 ## Explicação Detalhada do Funcionamento e Fluxos
